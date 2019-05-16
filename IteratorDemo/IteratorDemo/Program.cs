@@ -8,21 +8,11 @@ namespace IteratorDemo
 {
     class Program
     {
-        private static IPainter FindCheapestPainter(double sqMeters, IEnumerable<IPainter> painters)
-        {
-            return
-                painters
-                    .Where(painter => painter.IsAvailable)
-                    .WithMinimum(painter => painter.EstimateCompensation(sqMeters));
-        }
+        private static IPainter FindCheapestPainter(double sqMeters, Painters painters) =>
+            painters.GetAvailable().GetCheapestOne(sqMeters);
 
-        private static IPainter FindFastestPainter(double sqMeters, IEnumerable<IPainter> painters)
-        {
-            return
-                painters
-                    .Where(painter => painter.IsAvailable)
-                    .WithMinimum(painter => painter.EstimateTimeToPaint(sqMeters));
-        }
+        private static IPainter FindFastestPainter(double sqMeters, Painters painters) =>
+            painters.GetAvailable().GetFastestOne(sqMeters);
 
         private static IPainter WorkTogether(double sqMeters, IEnumerable<ProportionalPainter> painters)
         {
